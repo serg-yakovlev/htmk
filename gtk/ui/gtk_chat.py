@@ -16,12 +16,13 @@ class ChatWindow(Gtk.Window):
 
     def __init__(self):
         super().__init__(title="Mega Chat | Login")
-        event.Event(name="login")
-        # self.login_win = login.LoginWindow(self.regy_date)
-        # self.login_win.show_all()
+        event.Event(name="login",callback=self.regy_date)
+        self.login_win = login.LoginWindow()
+        self.login_win.show_all()
         self.connection = None
+        self.__interface()
 
-        #self.set_allocation
+    def __interface(self):
         self.set_position(Gtk.WindowPosition.CENTER)
         self.set_size_request(800, 600)
 
@@ -100,36 +101,7 @@ class ChatWindow(Gtk.Window):
         center_box.pack_start(separator, False, False, 5)
 
 
-
-
-        # input_avatar = Gtk.Image.new_from_pixbuf(pict)
-        
-        # message_box = Gtk.Box()
-        # message_box.pack_start(input_avatar, False, True,  5)
-
-        # input_message.add(message_box)
-
-        # text_label = Gtk.Label()
-        # text_label.set_markup(
-        #     "<b>Недавно мне стало</b> интересно, насколько хорошо "
-        #     "Python, на котором,  Блог о программировании, операционных "
-        #     "системах, СУБД, девайсах, сетях,  Пишем GUI-приложение при "
-        #     "помощи Python,  GTK и Glade Так как XML является текстовым "
-        #     "форматом, его очень "
-        #     "здорово хранить в Git. <a href='google.com'>Google</a>"
-        #     #"<img src='avatar.jpg'/>"
-        #     )
-        # text_label.set_justify(Gtk.Justification.LEFT)
-        # text_label.set_selectable(True)
-        # text_label.set_line_wrap(True)
-
-
-        # message_box.pack_start(text_label, True, False,  5
-        # )
-
-
-
-        output_message = Gtk.Frame()
+#        output_message = Gtk.Frame()
 
         send_box = Gtk.Box()
         send_box.set_spacing(5)
@@ -150,37 +122,46 @@ class ChatWindow(Gtk.Window):
         favorite_label = Gtk.Label(label = "Favorites")
         right_box.pack_start(favorite_label, False, False, 0)
 
-        self.show_all()
+#        self.show_all()
 
-        test_input = {
-        "message": ("Этот модуль считается устаревшим. "
-            "Он будет по-прежнему поддерживаться и сохранять стабильность "
-            "API/ABI на всём протяжении серии GNOME 2.x, но мы не советуем "
-            "использовать его в новых приложениях, если только вам "
-            "не требуются возможности, которые ещё не перенесены "
-            "в другие модули."
-            ),
-        "user": "vasia"
-        }
+        # test_input = {
+        # "message": ("Этот модуль считается устаревшим. "
+        #     "Он будет по-прежнему поддерживаться и сохранять стабильность "
+        #     "API/ABI на всём протяжении серии GNOME 2.x, но мы не советуем "
+        #     "использовать его в новых приложениях, если только вам "
+        #     "не требуются возможности, которые ещё не перенесены "
+        #     "в другие модули."
+        #     ),
+        # "user": "vasia"
+        # }
 
-        test_output = {
-        "message": ("Указатель на пиксельные данные pixbuf. "
-            "Пожалуйста, смотрите раздел о данных изображения для "
-            "получения информации о том, как данные пикселей "
-            "хранятся в памяти.Эта функция будет вызывать неявную "
-            "копию данных pixbuf, если pixbuf был создан из "
-            "данных только для чтения. "
-            ),
-        "user": "User"
-        }
+        # test_output = {
+        # "message": ("Указатель на пиксельные данные pixbuf. "
+        #     "Пожалуйста, смотрите раздел о данных изображения для "
+        #     "получения информации о том, как данные пикселей "
+        #     "хранятся в памяти.Эта функция будет вызывать неявную "
+        #     "копию данных pixbuf, если pixbuf был создан из "
+        #     "данных только для чтения. "
+        #     ),
+        # "user": "User"
+        # }
 
-        self.__add_message_box(test_input)
-        self.__add_message_box(test_output, False)
+        # self.__add_message_box(test_output, False)
+        # self.__add_message_box(test_input)
+        # self.__add_message_box(test_output, False)
+        # self.__add_message_box(test_input)
+        # self.__add_message_box(test_input)
+        # self.__add_message_box(test_output, False)
+        # self.__add_message_box(test_output, False)
+        # self.__add_message_box(test_input)
+        # self.__add_message_box(test_input)
+        # self.__add_message_box(test_output, False)
+        # self.__add_message_box(test_output, False)
+        # self.__add_message_box(test_input)
 
     def __add_message_box(self, data, input=True):
-
-        input_message = Gtk.Frame()
-        self.chat_box.pack_start(input_message, False, True,  5)
+        message = Gtk.Frame()
+        self.chat_box.pack_start(message, False, True,  5)
 
         pict = GdkPixbuf.Pixbuf.new_from_file_at_scale(
         filename=os.path.join(
@@ -188,51 +169,35 @@ class ChatWindow(Gtk.Window):
                 ),
                  f".contacts/{data['user']}.png" if input else "Avatar.png"
                 ), 
-        width=50, 
-        height=50, 
+        width=100, 
+        height=100, 
         preserve_aspect_ratio=True)
         avatar = Gtk.Image.new_from_pixbuf(pict)
-        
         message_box = Gtk.Box()
-        message_box.pack_end(avatar, False, True,  5)
-
-        input_message.add(message_box)
-
+        message.add(message_box)
         text_label = Gtk.Label()
-        #text_label.set_markup(
-        #    "<b>Недавно мне стало</b> интересно, насколько хорошо "
-        #    "Python, на котором,  Блог о программировании, операционных "
-        #    "системах, СУБД, девайсах, сетях,  Пишем GUI-приложение при "
-        #    "помощи Python,  GTK и Glade Так как XML является текстовым "
-        #    "форматом, его очень "
-        ##    "здорово хранить в Git. <a href='google.com'>Google</a>"
-        #    #"<img src='avatar.jpg'/>"
-        #    )
         text_label.set_markup(data['message'])
         text_label.set_selectable(True)
         text_label.set_line_wrap(True)
-
-        if not input:
-            text_label.set_justify(Gtk.Justification.RIGHT)
-            message_box.pack_end(text_label, True, False,  5)
+        if input:
+            message_box.pack_start(avatar, True, False,  5)
         else:
-            message_box.pack_start(text_label, True, False,  5)
+            message_box.pack_end(avatar, True, False,  5)
+            text_label.set_justify(Gtk.Justification.RIGHT)
+        message_box.pack_start(text_label, True, False,  5)
 
-        self.chat_box.pack_start(message_box, False, True,  5)
-
-
-    def regy_date():
-        self.login.hide()
+    def regy_date(self, *args, **kwargs):
+        self.login_win.hide()
         storage = redis.StrictRedis()
         try:
-            self.login = storage.get("login")
+            self.login_win = storage.get("login")
             self.password = storage.get("password")
         except redis.RedisError:
             print("No data")
             Gtk.main_quit()
         else:
             self.__create_connection()
-            self.show_all()
+            #self.show_all()
 
 
     def __create_connection(self):
@@ -240,14 +205,14 @@ class ChatWindow(Gtk.Window):
             self.connection.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
             # self.connection.setblocking(0)
             self.connection.connect((HOST,PORT))
-            data = json.dumps({"login": self.login, "password": self.password})
-            self.connection.send(data.encode("utf-8"))
             result = self.connection.reqv(2048)
             data = json.loads(result.decode("utf-8"))
             if data.get("status") != "OK":
                 print(data.get("message"))
                 Gtk.main_quit()
             else:
+                data = json.dumps({"login": self.login, "password": self.password})
+                self.connection.send(data.encode("utf-8"))
                 self__run()
 
 
@@ -261,5 +226,5 @@ if __name__ == '__main__':
     #print(dir(Gtk.Entry.connect.__name__))
     win = ChatWindow()
     win.connect("destroy", Gtk.main_quit)
-    win.show_all()
+    #win.show_all()
     Gtk.main()

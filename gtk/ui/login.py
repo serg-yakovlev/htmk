@@ -9,7 +9,7 @@ class LoginWindow(Gtk.Window):
     
     def __init__(self):
         super().__init__(title="Mega Chat | Login")
-        event.Event(name="login")
+        # event.Event(name="login")
 
         self.is_login = False
         self.is_password = False

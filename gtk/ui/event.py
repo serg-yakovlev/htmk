@@ -12,7 +12,7 @@ class Event(object):
         if cls.callbacks.get(kwargs.get("name")) is None:
             cls.callbacks[kwargs["name"]] = set()
             if kwargs.get("callback"):
-                cls.callbacks[kwargs.get["name"]].add(kwargs)
+                cls.callbacks[kwargs.get("name")].add(kwargs.get("callback"))
         if cls.instance is None:
             cls.instance = object.__new__(cls)
         return cls.instance
